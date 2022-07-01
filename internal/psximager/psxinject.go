@@ -11,6 +11,6 @@ const (
 	PsxInject = "psxinject"
 )
 
-func NewInjectCmd(args ...string) *exec.Cmd {
-	return NewPipedCmd(PsxInject, args...)
+func NewInjectCmd(cueFile, orgFile, injectFile string) *exec.Cmd {
+	return NewPipedCmd(PsxInject, cueFile, orgFile, injectFile)
 }

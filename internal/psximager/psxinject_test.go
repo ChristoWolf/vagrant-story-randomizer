@@ -2,7 +2,6 @@
 package psximager_test
 
 import (
-	"os"
 	"reflect"
 	"testing"
 
@@ -13,12 +12,10 @@ import (
 func TestNewInjectCmd(t *testing.T) {
 	t.Parallel()
 	wantCmd := psximager.PsxInject
-	wantArgs := []string{"-test", "args"}
+	wantArgs := []string{"cueFile.cue", "orgFile", "injectFile"}
 	want := psximager.NewPipedCmd(wantCmd, wantArgs...)
-	want.Stdout = os.Stdout
-	want.Stderr = os.Stderr
 	// Test that the command matches our expectations.
-	got := psximager.NewInjectCmd(wantArgs...)
+	got := psximager.NewInjectCmd(wantArgs[0], wantArgs[1], wantArgs[2])
 	if !reflect.DeepEqual(*got, *want) {
 		t.Errorf("got: %v, want: %v", *got, *want)
 	}

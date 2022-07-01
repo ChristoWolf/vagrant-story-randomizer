@@ -13,9 +13,12 @@ import (
 // TestNewPipedCmd tests the NewPipedCmd function.
 func TestNewPipedCmd(t *testing.T) {
 	t.Parallel()
+	wantPrefix := []string{"start", "/min", "/c"}
 	wantCmd := "test-cmd"
 	wantArgs := []string{"-test", "args"}
-	want := exec.Command(wantCmd, wantArgs...)
+	wantFullArgs := append(wantPrefix, wantCmd)
+	wantFullArgs = append(wantFullArgs, wantArgs...)
+	want := exec.Command("cmd.exe", wantFullArgs...)
 	want.Stdout = os.Stdout
 	want.Stderr = os.Stderr
 	// Test that the command matches our expectations.
