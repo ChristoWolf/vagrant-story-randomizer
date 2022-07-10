@@ -2,8 +2,6 @@ name: Go
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ '**' ]
   pull_request:
     branches: [ 'main' ]
 
@@ -30,10 +28,9 @@ jobs:
       run: go test -v ./... -race -coverprofile=coverage -covermode=atomic
       
     - name: Publish coverage report
-      uses: codecov/codecov-action@master
+      uses: codecov/codecov-action@v3
       with:
-        directory: GITHUB_WORKSPACE
-        files: coverage
+        files: ./coverage
         fail_ci_if_error: true
         verbose: true
       
@@ -46,14 +43,10 @@ jobs:
     - name: Run golangci-lint
       uses: golangci/golangci-lint-action@v3
       with:
-        # version of golangci-lint to use in form of v1.2 or v1.2.3 or `latest` to use the latest version
         version: latest
         args: --config ./.github/configs/.golangci.yml
-        # if set to true and the action runs on a pull request - the action outputs only newly found issues
         only-new-issues: false
-        # if set to true then the action don't cache or restore ~/go/pkg.
         skip-pkg-cache: true
-        # if set to true then the action don't cache or restore ~/.cache/go-build.
         skip-build-cache: true
 
   gosec:
