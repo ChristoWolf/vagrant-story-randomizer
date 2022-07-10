@@ -27,7 +27,7 @@ jobs:
     # Somehow, any file extension of the coverage file will not be present on Windows Server, no clue why.
     # But this is also why we need to search for the file without extension when publishing the report.
     - name: Test and cover
-      run: go test -v ./... -race -coverprofile=coverage -covermode=atomic
+      run: go test -v ./... -race -coverprofile=coverage.out -covermode=atomic
       
     - name: Publish coverage report
       uses: codecov/codecov-action@master
@@ -46,14 +46,10 @@ jobs:
     - name: Run golangci-lint
       uses: golangci/golangci-lint-action@v3
       with:
-        # version of golangci-lint to use in form of v1.2 or v1.2.3 or `latest` to use the latest version
         version: latest
         args: --config ./.github/configs/.golangci.yml
-        # if set to true and the action runs on a pull request - the action outputs only newly found issues
         only-new-issues: false
-        # if set to true then the action don't cache or restore ~/go/pkg.
         skip-pkg-cache: true
-        # if set to true then the action don't cache or restore ~/.cache/go-build.
         skip-build-cache: true
 
   gosec:
