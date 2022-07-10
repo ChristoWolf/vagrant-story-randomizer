@@ -25,13 +25,12 @@ jobs:
     # Somehow, any file extension of the coverage file will not be present on Windows Server, no clue why.
     # But this is also why we need to search for the file without extension when publishing the report.
     - name: Test and cover
-      run: go test -v ./... -race -coverprofile=coverage.out -covermode=atomic
+      run: go test -v ./... -race -coverprofile=coverage -covermode=atomic
       
     - name: Publish coverage report
-      uses: codecov/codecov-action@master
+      uses: codecov/codecov-action@v3
       with:
         directory: GITHUB_WORKSPACE
-        files: coverage.out
         fail_ci_if_error: true
         verbose: true
       
