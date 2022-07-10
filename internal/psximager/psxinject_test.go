@@ -1,4 +1,3 @@
-// Package psximager_tests the psximager package.
 package psximager_test
 
 import (
@@ -26,7 +25,7 @@ func TestNewInjectCmd(t *testing.T) {
 // ExampleExecute executes the psxinject command.
 // Modify paths to match your environment.
 func ExampleExecute() {
-	err := psximager.Execute("C:\\Program Files\\psximager", "cueFile.cue", "orgFile", "injectFile")
+	err := psximager.Execute("./psximager", "cueFile.cue", "orgFile", "injectFile")
 	if err != nil {
 		fmt.Println(err)
 	}

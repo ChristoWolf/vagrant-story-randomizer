@@ -1,4 +1,4 @@
-// Package psximager_tests the psximager package.
+// Package psximager_test tests the psximager package.
 package psximager_test
 
 import (

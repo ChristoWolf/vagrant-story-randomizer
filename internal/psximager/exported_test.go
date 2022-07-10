@@ -1,4 +1,3 @@
-// Package psximager_tests the psximager package.
 package psximager
 
 var (

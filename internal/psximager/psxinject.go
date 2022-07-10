@@ -1,7 +1,6 @@
-// Package psximager provides a simple API wrapper
-// around psximager's psxbuild tool.
-// See https://github.com/cebix/psximager.
-// This package is not intended to be used directly.
+// Code contained in the psxinject.go file
+// wraps the psxinject tool which
+// is part of the psximager tool suite.
 package psximager
 
 import (
