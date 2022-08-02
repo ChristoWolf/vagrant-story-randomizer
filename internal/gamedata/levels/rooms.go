@@ -4,6 +4,10 @@
 // https://datacrystal.romhacking.net/wiki/Vagrant_Story:level_data.
 package levels
 
+import (
+	"fmt"
+)
+
 // A Room contains the room's MPD file's ID,
 // its (original) name,
 // and flags indicating the following:
@@ -446,4 +450,21 @@ var Rooms = map[int][]Room{
 	39: {
 		{Id: 171, Name: `Plateia Lumitar`},
 	},
+}
+
+// ZoneFileName returns the name of the zone file
+// for the given zone ID.
+func ZoneFileName(id int) (string, error) {
+	if _, ok := Rooms[id]; !ok {
+		return "", fmt.Errorf("unknown or unsupported zone ID: %d", id)
+	}
+	return fmt.Sprintf("ZONE%03d.ZND", id), nil
+}
+
+// MapFileName returns the name of the map file
+// for the given map ID.
+// The ID is not checked here,
+// as it is assumed to be valid w.r.t. the Room receiver.
+func (r Room) MapFileName() (string, error) {
+	return fmt.Sprintf("MAP%03d.MPD", r.Id), nil
 }
