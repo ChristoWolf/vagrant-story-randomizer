@@ -25,8 +25,3 @@ func SeedFrom(source string) Seed {
 func newSeed(source int64) Seed {
 	return Seed{source, rand.New(rand.NewSource(source))}
 }
-
-// Rand returns the rand.Rand of this Seed.
-func (s Seed) Rand() *rand.Rand {
-	return s.rand
-}

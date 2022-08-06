@@ -1,3 +1,4 @@
+// Package random_test contains tests for the package random.
 package random_test
 
 import (
@@ -6,6 +7,7 @@ import (
 	"testing"
 )
 
+// TestNewSeed tests the creation of a new seed using the function NewSeed.
 func TestNewSeed(t *testing.T) {
 	t.Parallel()
 	t.Run("created seed is valid", func(t *testing.T) {
@@ -16,6 +18,7 @@ func TestNewSeed(t *testing.T) {
 	})
 }
 
+// TestSeedFrom tests the creation of a seed from a string using the function SeedFrom.
 func TestSeedFrom(t *testing.T) {
 	t.Parallel()
 	data := []struct {

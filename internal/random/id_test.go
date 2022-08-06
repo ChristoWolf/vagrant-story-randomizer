@@ -7,6 +7,7 @@ import (
 	"testing"
 )
 
+// TestNewId tests the creation of a new ID from an integer using the function NewId.
 func TestNewId(t *testing.T) {
 	data := []struct {
 		name    string
@@ -14,14 +15,14 @@ func TestNewId(t *testing.T) {
 		want    random.Id
 		wantErr bool
 	}{
-		{name: "source 1 is valid", source: 1, want: random.Id{Value: 1}, wantErr: false},
-		{name: "source 511 is valid", source: 511, want: random.Id{Value: 511}, wantErr: false},
-		{name: "source 69 is valid", source: 69, want: random.Id{Value: 69}, wantErr: false},
-		{name: "source 0 is not valid", source: 0, want: random.Id{}, wantErr: true},
-		{name: "source 512 is not valid", source: 512, want: random.Id{}, wantErr: true},
-		{name: "negative source is not valid", source: -1, want: random.Id{}, wantErr: true},
-		{name: "min int source is not valid", source: math.MinInt, want: random.Id{}, wantErr: true},
-		{name: "max int source is not valid", source: math.MaxInt, want: random.Id{}, wantErr: true},
+		{name: "source 1 is valid", source: 1, want: 1, wantErr: false},
+		{name: "source 511 is valid", source: 511, want: 511, wantErr: false},
+		{name: "source 69 is valid", source: 69, want: 69, wantErr: false},
+		{name: "source 0 is not valid", source: 0, want: 0, wantErr: true},
+		{name: "source 512 is not valid", source: 512, want: 0, wantErr: true},
+		{name: "negative source is not valid", source: -1, want: 0, wantErr: true},
+		{name: "min int source is not valid", source: math.MinInt, want: 0, wantErr: true},
+		{name: "max int source is not valid", source: math.MaxInt, want: 0, wantErr: true},
 	}
 	for _, tt := range data {
 		t.Run(tt.name, func(t *testing.T) {
@@ -37,6 +38,7 @@ func TestNewId(t *testing.T) {
 	}
 }
 
+// TestRandomId tests valid inputs for the creation of a new, randomized ID using the function NewSeed.
 func TestRandomId(t *testing.T) {
 	data := []struct {
 		name    string
@@ -45,9 +47,9 @@ func TestRandomId(t *testing.T) {
 		max     random.Id
 		wantErr bool
 	}{
-		{name: "min is smaller than max", seed: random.NewSeed(), min: random.Id{Value: 1}, max: random.Id{Value: 69}, wantErr: false},
-		{name: "min equals max", seed: random.NewSeed(), min: random.Id{Value: 69}, max: random.Id{Value: 69}, wantErr: false},
-		{name: "min is greater than max", seed: random.NewSeed(), min: random.Id{Value: 69}, max: random.Id{Value: 1}, wantErr: true},
+		{name: "min is smaller than max", seed: random.NewSeed(), min: 1, max: 69, wantErr: false},
+		{name: "min equals max", seed: random.NewSeed(), min: 69, max: 69, wantErr: false},
+		{name: "min is greater than max", seed: random.NewSeed(), min: 69, max: 1, wantErr: true},
 	}
 	for _, tt := range data {
 		t.Run(tt.name, func(t *testing.T) {
@@ -56,7 +58,7 @@ func TestRandomId(t *testing.T) {
 				t.Errorf("expected no error, got: %v", err)
 				return
 			}
-			if !tt.wantErr && (got.Value < tt.min.Value || got.Value > tt.max.Value) {
+			if !tt.wantErr && (got < tt.min || got > tt.max) {
 				t.Errorf("got: %d; want: min: %d, max: %d", got, tt.min, tt.max)
 			}
 		})
