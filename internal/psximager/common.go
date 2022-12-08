@@ -5,7 +5,8 @@
 package psximager
 
 import (
-	"os"
+	"bytes"
+	"io"
 	"os/exec"
 	"path"
 )
@@ -18,7 +19,12 @@ func NewPipedCmd(pwd string, name string, args ...string) *exec.Cmd {
 	fullArgs := append(prefix, path.Join(pwd, name))
 	fullArgs = append(fullArgs, args...)
 	cmd := exec.Command("cmd.exe", fullArgs...)
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
+	// For now, we don't need stdout.
+	// Might change in the future.
+	cmd.Stdout = io.Discard
+	// Buffer stderr s.t. it can be read
+	// in case of an error.
+	var stderr bytes.Buffer
+	cmd.Stderr = &stderr
 	return cmd
 }

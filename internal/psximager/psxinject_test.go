@@ -29,5 +29,4 @@ func ExampleExecute() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	// Output: error executing psxinject: exit status 1
 }
