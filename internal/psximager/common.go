@@ -7,15 +7,14 @@ package psximager
 import (
 	"os"
 	"os/exec"
-	"path"
 )
 
 // NewPipedCmd returns a new exec.Cmd that is configured to
 // run a named command in a piped manner
 // inside the given working directory.
-func NewPipedCmd(pwd string, name string, args ...string) *exec.Cmd {
+func NewPipedCmd(name string, args ...string) *exec.Cmd {
 	prefix := []string{"start", "/min", "/c"}
-	fullArgs := append(prefix, path.Join(pwd, name))
+	fullArgs := append(prefix, name)
 	fullArgs = append(fullArgs, args...)
 	cmd := exec.Command("cmd.exe", fullArgs...)
 	cmd.Stdout = os.Stdout

@@ -13,6 +13,7 @@ import (
 // and flags indicating the following:
 //   - if it contains a chest,
 //   - if a boss encounter occurs there.
+//
 // The ID pertains to the 3 digit number
 // in the map file name MAP<ID>.MPD.
 // Most room information is taken from

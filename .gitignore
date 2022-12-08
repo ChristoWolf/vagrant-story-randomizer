@@ -1,7 +1,10 @@
-# Binaries for programs and plugins
+# Binaries for programs and plugins,
+# excluding vendored binaries.
 *.exe
 *.exe~
+!**/vendor/**/*.exe
 *.dll
+!**/vendor/**/*.dll
 *.so
 *.dylib
 

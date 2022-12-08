@@ -15,15 +15,15 @@ const (
 
 // newInjectCmd returns a new exec.Cmd that is configured to
 // run the psxinject in a piped manner.
-func newInjectCmd(psximagerPath, cueFile, orgFile, injectFile string) *exec.Cmd {
-	return NewPipedCmd(psximagerPath, PsxInject, cueFile, orgFile, injectFile)
+func newInjectCmd(cueFile, orgFile, injectFile string) *exec.Cmd {
+	return NewPipedCmd(PsxInject, cueFile, orgFile, injectFile)
 }
 
 // Execute runs an inject command
 // given a cue file, the original file to overwrite inside the image,
 // and the file which shall be injected.
-func Execute(psximagerPath, cueFile, orgFile, injectFile string) error {
-	cmd := newInjectCmd(psximagerPath, cueFile, orgFile, injectFile)
+func Execute(cueFile, orgFile, injectFile string) error {
+	cmd := newInjectCmd(cueFile, orgFile, injectFile)
 	if err := cmd.Run(); err != nil {
 		return fmt.Errorf("error executing %s: %w", PsxInject, err)
 	}
