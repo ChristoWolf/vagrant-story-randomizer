@@ -4,6 +4,7 @@
 package psximager
 
 import (
+	"bytes"
 	"fmt"
 	"os/exec"
 )
@@ -25,7 +26,10 @@ func newInjectCmd(psximagerPath, cueFile, orgFile, injectFile string) *exec.Cmd 
 func Execute(psximagerPath, cueFile, orgFile, injectFile string) error {
 	cmd := newInjectCmd(psximagerPath, cueFile, orgFile, injectFile)
 	if err := cmd.Run(); err != nil {
-		return fmt.Errorf("error executing %s: %w", PsxInject, err)
+		if stderr, ok := cmd.Stderr.(*bytes.Buffer); ok {
+			err = fmt.Errorf("%v: %s", err, stderr)
+		}
+		return fmt.Errorf("error executing %s: %v", PsxInject, err)
 	}
 	return nil
 }

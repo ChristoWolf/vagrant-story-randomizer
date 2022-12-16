@@ -3,6 +3,7 @@ package psximager_test
 import (
 	"fmt"
 	"reflect"
+	"strings"
 	"testing"
 
 	"github.com/christowolf/vagrant-story-randomizer/internal/psximager"
@@ -22,6 +23,23 @@ func TestNewInjectCmd(t *testing.T) {
 	}
 }
 
+// TestExecuteError tests the error handling
+// behavior of the Execute function
+// in case the command execution failed.
+func TestExecuteError(t *testing.T) {
+	t.Parallel()
+	wrongPath := "./non-existent-path"
+	err := psximager.Execute(wrongPath, "cueFile.cue", "orgFile", "injectFile")
+	if err == nil {
+		t.Errorf("expected a non-nil error")
+	}
+	got := err.Error()
+	want := fmt.Sprintf("error executing %s: exit status 1: '%s' is not recognized", psximager.PsxInject, wrongPath)
+	if strings.HasPrefix(got, want) {
+		t.Errorf("got: %v, want substring: %v", got, want)
+	}
+}
+
 // ExampleExecute executes the psxinject command.
 // Modify paths to match your environment.
 func ExampleExecute() {
@@ -29,5 +47,4 @@ func ExampleExecute() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	// Output: error executing psxinject: exit status 1
 }

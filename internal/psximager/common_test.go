@@ -2,7 +2,8 @@
 package psximager_test
 
 import (
-	"os"
+	"bytes"
+	"io"
 	"os/exec"
 	"path"
 	"reflect"
@@ -21,8 +22,9 @@ func TestNewPipedCmd(t *testing.T) {
 	wantFullArgs := append(wantPrefix, path.Join(wantPwd, wantCmd))
 	wantFullArgs = append(wantFullArgs, wantArgs...)
 	want := exec.Command("cmd.exe", wantFullArgs...)
-	want.Stdout = os.Stdout
-	want.Stderr = os.Stderr
+	want.Stdout = io.Discard
+	var stderr bytes.Buffer
+	want.Stderr = &stderr
 	// Test that the command matches our expectations.
 	got := psximager.NewPipedCmd(wantPwd, wantCmd, wantArgs...)
 	if !reflect.DeepEqual(*got, *want) {
