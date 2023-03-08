@@ -5,3 +5,7 @@ issues:
     - path: _test\.go
       linters:
         - errcheck
+
+linters:
+  enable:
+    - gosec

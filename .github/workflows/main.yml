@@ -50,12 +50,3 @@ jobs:
           only-new-issues: false
           skip-pkg-cache: true
           skip-build-cache: true
-
-  gosec:
-    name: Scan code for security issues
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: golang-security-action
-        uses: securego/gosec@master
