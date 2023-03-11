@@ -32,12 +32,14 @@ jobs:
       - name: Publish coverage report
         uses: codecov/codecov-action@v3
         with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          directory: GITHUB_WORKSPACE
           files: ./coverage
           fail_ci_if_error: true
           verbose: true
 
   lint:
-    name: Run a linter
+    name: Run linters
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
