@@ -5,6 +5,13 @@ issues:
     - path: _test\.go
       linters:
         - errcheck
+    # "G404: Use of weak random number generator (math/rand instead of crypto/rand) (gosec)"
+    # This is a false positive. 
+    # We are not using this for security purposes
+    # and require seedability.
+    - text: "G404:"
+      linters:
+        - gosec
 
 linters:
   enable:
